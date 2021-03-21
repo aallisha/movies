@@ -65,7 +65,7 @@
 							<div class="caption">
 								<div class="captioninside">
 									<h3>{{ movie.title }}</h3>
-									<p>{{ movie.description }}</p>
+									<p>{{ movie.description|truncatechars:200 }}</p>
 									<a href="{% url 'movies_main:movie_detail' movie.slug %}" class="playbutton">Play</a>
 								</div>
 						</div>
