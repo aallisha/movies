@@ -1,0 +1,44 @@
+{% extends 'movies/index.html' %}
+{% load static %}
+
+{% block content %}
+    <main class="content">
+        <div class="single">
+
+            <section class="trailer">
+                <h3>Trailer</h3>
+                <div class="trailer_frame">
+                    <iframe width="100%" height="100%" src="{{ object.trailer_link }}" frameborder="1"
+                            allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <section class="movie">
+                <img src="{{ object.image.url }}">
+                <ul class="hello">
+                    <li>{{ object.title }}</li>
+                    <li>{{ object.description }}</li>
+                    <li><a href="/movies/genre/{{ object.genre }}">{{ object.genre }}</a></li>
+                  <li>
+                      {% for actor in actors %}
+                          <a href="/movies/cast/{{ actor.actor_slug }}">{{ actor.actor_name }} </a>
+                      {% endfor %}
+                </li>
+                    <li>{{ object.views }} views</li>
+                    <li><a href="#">Watch</a></li>
+                </ul>
+            </section>
+
+            <section class="related" style="margin-top:20px;">
+                <h3>Related movies</h3>
+                {% for movie in related_movies %}
+                    <div class="relatemovie">
+                        <a href="#"><img src="{{ movie.image.url }}"></a>
+                        <a href="#"><span class="relatedname">{{ movie.title }}</span></a>
+                    </div>
+                {% endfor %}
+            </section>
+
+        </div>
+    </main>
+{% endblock content %}
