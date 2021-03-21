@@ -1,5 +1,5 @@
 .idea/
-# db.sqlite3
+db.sqlite3
 movies/migrations/__pycache__/
 movie_app/__pycache__/
 User/migrations/__pycache__/
