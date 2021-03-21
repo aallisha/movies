@@ -1,2 +1,8 @@
 .idea/
 db.sqlite3
+movies/migrations/__pycache__/
+movie_app/__pycache__/
+User/migrations/__pycache__/
+User/__pycache__/
+movies/__pycache__/
+webenv/
