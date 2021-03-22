@@ -5,8 +5,8 @@
 {% block content %}
 <div class="container" style="color:#ffffff">
     <h1>Profile</h1>
-    <p>Username:{{ user}}</p>
-    <p>Email:{{ user.email}}</p>
+    <p>Username: {{ user}}</p>
+    <p>Email: {{ user.email}}</p>
 <a href ="{% url 'logout'%}">logout</a>
 </div>
 {% endblock %}

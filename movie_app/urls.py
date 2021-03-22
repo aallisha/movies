@@ -22,10 +22,11 @@ from User import views as User_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', HomeView.as_view()),
+    path('', HomeView.as_view(), name='movie-home'),
     path('admin/', admin.site.urls),
     path('movies/', include('movies.urls', namespace='movies_main')),
     path('register/', User_views.register, name='register'),
+    path('profile/', User_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='User/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='User/logout.html'), name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='User/password_reset.html'),
@@ -39,7 +40,6 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='User/password_reset_complete.html'),
          name='password_reset_complete'),
-    path('profile/',User_views.profile,name='profile'),
 ]
 
 # use these urls only during development
