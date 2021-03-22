@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'movies/index.html' %}
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+{% block content %}
+<div class="container" style="color:#ffffff">
+    <h1>Profile</h1>
+    <p>Username:{{ user}}</p>
+    <p>Email:{{ user.email}}</p>
+<a href ="{% url 'logout'%}">logout</a>
+</div>
+{% endblock %}

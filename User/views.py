@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
-
 from django.contrib import messages
-
 
 
 # Create your views here.
@@ -18,3 +16,8 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'User/register.html', {'form': form})
+
+
+def profile(request):
+        return render(request,'User/profile.html',{'name':request.user})
+
