@@ -58,7 +58,7 @@ class Movie(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, max_length=2)
     trailer_link = models.URLField()
     views = models.IntegerField(default=0)
-    #rating = models.IntegerField(choices=RATING, default=2)
+    rating = models.IntegerField(choices=RATING, default=2)
     def save(self, *args, **kwargs):
         """ 
         Override the default save function to extend its functionality 
