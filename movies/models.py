@@ -17,6 +17,15 @@ GENRE_CHOICES = (
         ('Romance', 'Romance')
 )
 
+RATING = (
+    (1, 'Poor'),
+    (2, 'Average'),
+    (3, 'Good'),
+    (4, 'Very Good'),
+    (5, 'Excellent')
+)
+
+
 class MovieCast(models.Model):
     actor_name = models.CharField(max_length=100)
     actor_slug = models.SlugField(null=True, blank=True)
@@ -49,7 +58,7 @@ class Movie(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, max_length=2)
     trailer_link = models.URLField()
     views = models.IntegerField(default=0)
-
+    #rating = models.IntegerField(choices=RATING, default=2)
     def save(self, *args, **kwargs):
         """ 
         Override the default save function to extend its functionality 
