@@ -31,7 +31,7 @@
 	<div class="wrapper">
 
 		<header class="header">
-            <figure class="logo"><a href="/"><img src="{% static 'img/logo.png' %}" alt="Logo"></figure></a>
+			<figure class="logo"><a href="/"><img src="{% static 'img/logo.png' %}" alt="Logo"></a></figure>
 			<nav class="menu">
 				<ul>
 					<li><a href="/">Home</a></li>
@@ -44,11 +44,13 @@
                             <li><a href="{% url 'movies_main:movie_genre' 'Comedy' %}">Comedy</a></li>
 						</ul>
 					</li>
+
 				</ul>
+
 			</nav>
-            <form class="search" method="GET" action="{% url 'movies_main:movie_search' %}">
+            <form class="search" method="GET" >
 				<input type="text" name="query" value="{{ request.GET.query }}" class="searchfield" placeholder="Search..." style="text-align: center;">
-                <input type="submit" class="searchsubmit" value="">
+				 <input type="submit" class="searchsubmit" value="">
 			</form>
 
 			<div class="toggle"><img src="{% static 'img/menu.svg' %}"></div>
