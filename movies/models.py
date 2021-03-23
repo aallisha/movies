@@ -27,6 +27,9 @@ RATING = (
 
 
 class MovieCast(models.Model):
+    """
+    Contains the actors in a movie
+    """
     actor_name = models.CharField(max_length=100)
     actor_slug = models.SlugField(null=True, blank=True)
 
@@ -78,4 +81,19 @@ class MovieLinks(models.Model):
     movie = models.ForeignKey(Movie, related_name='movie_watch_link', on_delete=models.CASCADE)
     watch_link = models.URLField()
 
+class MovieComment(models.Model):
+    """
+    Model for the comments on each movie
+    """
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)
