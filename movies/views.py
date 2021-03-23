@@ -20,9 +20,9 @@ class HomeView(ListView):
 
     
 class MovieListView(ListView):
+    # Render the template against a context containing a variable called object_list that contains all the movie objects.
     model = Movie
     paginate_by = 1
-    # Render the template against a context containing a variable called object_list that contains all the movie objects.
 
 class MovieDetailView(DetailView):
     model = Movie
@@ -33,11 +33,14 @@ class MovieDetailView(DetailView):
         Retrieves the movie links for our movie object and adds it to our context
         """
         context = super(MovieDetailView, self).get_context_data(**kwargs)
+        # retrieving the single movie object
+        movie_object = super(MovieDetailView, self).get_object()
         # we'll use this 'link' variable in our templates
         context['link'] = MovieLinks.objects.filter(movie=self.get_object())
+        # include only the approved comments
+        context['comments'] = movie_object.comments.filter(active=True)
         # for displaying the related movies based on the genre
         context['related_movies'] = Movie.objects.filter(genre=self.get_object().genre)
-        movie_object = super(MovieDetailView, self).get_object()
         # get all of the actors that a movie object has and pass it to the context
         context['actors'] = movie_object.cast.all()
         # increment the views count every time the object is retrieved
