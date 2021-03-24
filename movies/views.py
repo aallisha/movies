@@ -109,3 +109,5 @@ class MovieYearView(YearArchiveView):
     make_object_list = True
     allow_future = True
     template_name = "movies/year.html"
+
+

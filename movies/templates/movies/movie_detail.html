@@ -19,17 +19,26 @@
                     <li>{{ object.title }}</li>
                     <li>{{ object.description }}</li>
                     <li><a href="/movies/genre/{{ object.genre }}">{{ object.genre }}</a></li>
-                  <li>
-                      {% for actor in actors %}
-                          <a href="/movies/cast/{{ actor.actor_slug }}">{{ actor.actor_name }} </a>
-                      {% endfor %}
-                </li>
+                    <li>
+                          {% for actor in actors %}
+                              <a href="/movies/cast/{{ actor.actor_slug }}">{{ actor.actor_name }} </a>
+                          {% endfor %}
+                    </li>
+                    <li>Rating: <b>{{ object.rating }}/5</b></li>
                     <li>{{ object.views }} views</li>
                     <li><a href="#">Watch</a></li>
+                    <li>
+                        {% for comment in comments %}
+                        <h6>{{ comment.name }}</h6>
+                        <p> {{ comment.body }}</p>
+                        {% endfor %}
+                    </li>
                 </ul>
+
             </section>
             <section class="comments">
                 <h3>Comments</h3>
+
             </section>
 
             <section class="related" style="margin-top:20px;">
@@ -42,7 +51,7 @@
                 {% endfor %}
             </section>
 
-
         </div>
     </main>
+
 {% endblock content %}
