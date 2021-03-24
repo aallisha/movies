@@ -22,4 +22,3 @@ def register(request):
 @login_required
 def profile(request):
         return render(request,'User/profile.html',{'name':request.user})
-
