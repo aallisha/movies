@@ -44,23 +44,24 @@
                             <li><a href="{% url 'movies_main:movie_genre' 'Comedy' %}">Comedy</a></li>
 						</ul>
 					</li>
-<<<<<<< HEAD
 
-=======
                     {% if user.is_authenticated %}
                         <li style="align: right;"><a href="{% url 'profile' %}">Profile</a></li>
                     {% endif %}
->>>>>>> ff1c13f9eb89d5401306c4f724d36d9f15cd8305
+
 				</ul>
 
 			</nav>
-<<<<<<< HEAD
+
             <form class="search" method="GET" >
 				<input type="text" name="query" value="{{ request.GET.query }}" class="searchfield" placeholder="Search..." style="text-align: center;">
 				 <input type="submit" class="searchsubmit" value="">
 			</form>
-=======
->>>>>>> ff1c13f9eb89d5401306c4f724d36d9f15cd8305
+			{% for result in results %}
+
+			{% endfor %}
+
+
 
 			<div class="toggle"><img src="{% static 'img/menu.svg' %}"></div>
 		</header>
