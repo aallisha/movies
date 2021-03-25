@@ -116,8 +116,8 @@ body{font-family: 'Roboto', sans-serif; background-color: #191919; position: rel
 .dlinks li, .wlinks li{ display: inline; float: left; margin: 0px 10px 5px 0px;}
 .dlinks li a, .wlinks li a{float: left; padding: 7px 10px; background-color: #c22026; font-size:14px; border-radius:2px;text-decoration:none; color:#fff;box-shadow: 0px 1px 2px rgba(0,0,0, 0.5);}
 
-.comments{float: left;width: calc(100% - 20px); margin:0 0 20px 0;background-color: #202020;padding: 10px; box-shadow: 0px 1px 2px rgba(0,0,0, 0.3);}
-.comments h3{float:left;padding: 0 9px; margin-bottom: 10px; color:#fff;    padding: 0 10px;}
+.comments{float: left;width: calc(100% - 20px); margin:0 0 20px 0; color:#ffffff; background-color: #202020;padding: 10px; box-shadow: 0px 1px 2px rgba(0,0,0, 0.3);}
+.comments h3{float:left;padding: 0 9px; margin-bottom: 10px; padding: 0 10px;}
 
 .related{float: left;width: calc(100% - 20px); margin:0 0 20px 0;background-color: #202020;padding: 10px; box-shadow: 0px 1px 2px rgba(0,0,0, 0.3);}
 .related h3{float:left;padding: 0 10px; margin-bottom: 10px; color:#fff; width: calc(100% - 20px)}
