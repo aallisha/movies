@@ -29,9 +29,14 @@
                     <li><a href="#">Watch</a></li>
                     <li>
                         {% for comment in comments %}
-                        <h6>{{ comment.name }}</h6>
-                        <p> {{ comment.body }}</p>
+                            <h6>{{ comment.name }}</h6>
+                            <p> {{ comment.body }}</p>
                         {% endfor %}
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'login' %}">Comment</a></li> 
+                        {% else %}
+                            {{ commentform.as_p }}
+                        {% endif %}
                     </li>
                 </ul>
 

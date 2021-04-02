@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.dates import YearArchiveView
 from .models import Movie, MovieLinks, MovieCast
+from django.views.generic.edit import FormView
+from .forms import CommentForm
 
 
 class HomeView(ListView):
@@ -102,6 +104,11 @@ class MovieSearchView(ListView):
         else:
             object_list = Movie.objects.all()
         return object_list
+
+class MovieCommentFormView(FormView):
+    form_class = CommentForm
+    template_name = 'movies/movie_comment_form.html'
+
 
 class MovieYearView(YearArchiveView):
     queryset = Movie.objects.all()

@@ -3,10 +3,14 @@
 <title>Profile</title>
 {% endblock %}
 {% block content %}
-<div class="container" style="color:#ffffff">
-    <h1>Profile</h1>
-    <p>Username: {{ user}}</p>
-    <p>Email: {{ user.email}}</p>
-<a href ="{% url 'logout'%}">logout</a>
-</div>
+<main class="content">
+    <div class="single">
+        <div class="container" style="color:#ffffff">
+            <h1>Profile</h1>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+        <a href ="{% url 'logout'%}">logout</a>
+        </div>
+    </div>
+</main>
 {% endblock %}
