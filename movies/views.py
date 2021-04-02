@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic.dates import YearArchiveView
 from .models import Movie, MovieLinks, MovieCast
-from django.views.generic.edit import FormView
 from .forms import CommentForm
+from django.views.generic.edit import FormMixin
+from django.urls import reverse
 
 
 class HomeView(ListView):
@@ -22,13 +21,19 @@ class HomeView(ListView):
 
     
 class MovieListView(ListView):
+    """
+    Render the template against a context containing a variable called object_list that contains all the movie objects.
+    """
     model = Movie
     paginate_by = 1
-    # Render the template against a context containing a variable called object_list that contains all the movie objects.
 
-class MovieDetailView(DetailView):
+class MovieDetailView(FormMixin, DetailView):
     model = Movie
     paginate_by = 1
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return reverse('movies_main:movie_detail', kwargs = {'slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         """
@@ -38,7 +43,10 @@ class MovieDetailView(DetailView):
 
         # retrieve the single movie object
         movie_object = super(MovieDetailView, self).get_object()
-        
+
+        # pass the comment form to context
+        context['comment_form'] = CommentForm(initial={'movie': self.object})
+
         # get all the approved comments 
         context['comments'] = movie_object.comments.filter(active=True)
 
@@ -56,6 +64,20 @@ class MovieDetailView(DetailView):
         movie_object.save()
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.save()
+        return super(MovieDetailView, self).form_valid(form)
 
 class MovieCastView(ListView):
     model = Movie
@@ -114,16 +136,3 @@ class MovieSearchView(ListView):
         else:
             object_list = Movie.objects.all()
         return object_list
-
-class MovieCommentFormView(FormView):
-    form_class = CommentForm
-    template_name = 'movies/movie_comment_form.html'
-
-
-class MovieYearView(YearArchiveView):
-    queryset = Movie.objects.all()
-    date_field = 'produced_date'
-    make_object_list = True
-    allow_future = True
-    template_name = "movies/year.html"
-
