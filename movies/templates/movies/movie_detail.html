@@ -27,23 +27,31 @@
                     <li>Rating: <b>{{ object.rating }}/5</b></li>
                     <li>{{ object.views }} views</li>
                     <li><a href="#">Watch</a></li>
-                    <li>
-                        {% for comment in comments %}
-                            <h6>{{ comment.name }}</h6>
-                            <p> {{ comment.body }}</p>
-                        {% endfor %}
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'login' %}">Comment</a></li> 
-                        {% else %}
-                            {{ commentform.as_p }}
-                        {% endif %}
-                    </li>
                 </ul>
 
             </section>
             <section class="comments">
                 <h3>Comments</h3>
-
+                    {% for comment in comments %}
+                            <div class="comments" style="padding: 10px;">
+                              <p class="font-weight-bold">
+                                {{ comment.name }}
+                              </p>
+                              {{ comment.body | linebreaks }}
+                            </div>
+                            {% endfor %}
+                    <div class="card-body">
+                            {% if user.is_authenticated %}
+                                <h3>Leave a comment</h3>
+                                <br>
+                                <form method="post" style="margin-top: 1.3em;">
+                                  {{ comment_form.as_p }}
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                            </form>
+                            {% else %}
+                                <a style="margin-top: 1.3em;" href="{% url 'login' %}">Login to comment</a>
+                            {% endif %}
             </section>
 
             <section class="related" style="margin-top:20px;">
