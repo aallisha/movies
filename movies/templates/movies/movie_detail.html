@@ -31,27 +31,35 @@
 
             </section>
             <section class="comments">
-                <h3>Comments</h3>
-                    {% for comment in comments %}
-                            <div class="comments" style="padding: 10px;">
-                              <p class="font-weight-bold">
-                                {{ comment.name }}
-                              </p>
-                              {{ comment.body | linebreaks }}
-                            </div>
+                <h3>Comments ({{ comments.count }})</h3>
+                <div class="row">
+                    <div class="col-md-8 card mb-4  mt-3 ">
+                        <div class="card-body">
+                            {% for comment in comments %}
+                                <div class="comments" style="padding: 10px;">
+                                  <p class="font-weight-bold">
+                                    {{ comment.name }}
+                                  </p>
+                                  {{ comment.body | linebreaks }}
+                                </div>
                             {% endfor %}
-                    <div class="card-body">
-                            {% if user.is_authenticated %}
-                                <h3>Leave a comment</h3>
-                                <br>
-                                <form method="post" style="margin-top: 1.3em;">
-                                  {{ comment_form.as_p }}
-                                  {% csrf_token %}
-                                  <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-                            </form>
-                            {% else %}
-                                <a style="margin-top: 1.3em;" href="{% url 'login' %}">Login to comment</a>
-                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-8 card mb-4  mt-3 ">
+                        <div class="card-body">
+                                {% if user.is_authenticated %}
+                                    <h3>Leave a comment</h3>
+                                    <br>
+                                    <form method="post" style="margin-top: 1.3em;">
+                                      {{ comment_form.as_p }}
+                                      {% csrf_token %}
+                                      <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                                </form>
+                                {% else %}
+                                    <a style="margin-top: 1.3em;" href="{% url 'login' %}">Login to comment</a>
+                                {% endif %}
+                        </div>
+                    </div>
             </section>
 
             <section class="related" style="margin-top:20px;">
