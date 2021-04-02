@@ -35,16 +35,26 @@ class MovieDetailView(DetailView):
         Retrieves the movie links for our movie object and adds it to our context
         """
         context = super(MovieDetailView, self).get_context_data(**kwargs)
-        # we'll use this 'link' variable in our templates
-        context['link'] = MovieLinks.objects.filter(movie=self.get_object())
-        # for displaying the related movies based on the genre
-        context['related_movies'] = Movie.objects.filter(genre=self.get_object().genre)
+
+        # retrieve the single movie object
         movie_object = super(MovieDetailView, self).get_object()
+        
+        # get all the approved comments 
+        context['comments'] = movie_object.comments.filter(active=True)
+
         # get all of the actors that a movie object has and pass it to the context
         context['actors'] = movie_object.cast.all()
+
+        # we'll use this 'link' variable in our templates
+        context['link'] = MovieLinks.objects.filter(movie=self.get_object())
+
+        # for displaying the related movies based on the genre
+        context['related_movies'] = Movie.objects.filter(genre=self.get_object().genre)
+
         # increment the views count every time the object is retrieved
         movie_object.views +=1
         movie_object.save()
+
         return context
 
 class MovieCastView(ListView):
