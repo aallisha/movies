@@ -75,7 +75,7 @@ class MovieDetailView(FormMixin, DetailView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, 'Your comment is awaiting approval by the admin.')
+        messages.success(self.request, 'Please wait, your comment will be displayed after the admin approves of it.')
         return super(MovieDetailView, self).form_valid(form)
 
 class MovieCastView(ListView):
