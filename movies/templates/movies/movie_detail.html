@@ -49,18 +49,29 @@
                     <div class="col-md-8 card mb-4  mt-3 ">
                         <div class="card-body">
                                 {% if user.is_authenticated %}
-                                    <div class="content-section">
-                                        <form method="post">
-                                            {% csrf_token %}
-                                            <fieldset class="form-group">
-                                                <legend class="border-bottom mb-4"><h3>Leave a comment</h3></legend>
-                                                {{ comment_form | crispy }}
-                                            </fieldset>
-                                            <div class="form-group">
-                                                <button class="btn btn-outline-info" type="submit">Post</button>
-                                            </div>
-                                        </form>
-                                </form>
+                                    {% comment %} if the user has just posted a comment,
+                                    then they don't need to see the form {% endcomment %}
+                                    {% if messages %}
+                                        <div class="content-section">
+                                            {% for message in messages %}
+                                                <div class="alert alert-{{ message.tags }}">
+                                                {{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="content-section">
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <fieldset class="form-group">
+                                                    <legend class="border-bottom mb-4"><h3>Leave a comment</h3></legend>
+                                                    {{ comment_form | crispy }}
+                                                </fieldset>
+                                                <div class="form-group">
+                                                    <button class="btn btn-outline-info" type="submit">Post</button>
+                                                </div>
+                                            </form>
+                                    {% endif %}
                                 {% else %}
                                     <a style="margin-top: 1.3em;" href="{% url 'login' %}">Login to comment</a>
                                 {% endif %}

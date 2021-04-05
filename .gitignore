@@ -8,3 +8,5 @@ movies/__pycache__/
 webenv/
 venv/
 tags
+users/migrations/__pycache__
+users/__pycache__

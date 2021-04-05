@@ -3,6 +3,7 @@ from .models import Movie, MovieLinks, MovieCast
 from .forms import CommentForm
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
+from django.contrib import messages
 
 
 class HomeView(ListView):
@@ -77,6 +78,7 @@ class MovieDetailView(FormMixin, DetailView):
 
     def form_valid(self, form):
         form.save()
+        messages.success(self.request, 'Your comment is awaiting approval by the admin.')
         return super(MovieDetailView, self).form_valid(form)
 
 class MovieCastView(ListView):
