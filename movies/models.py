@@ -74,13 +74,6 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
-class MovieLinks(models.Model):
-    """
-    Model for the links to our movies
-    """
-    movie = models.ForeignKey(Movie, related_name='movie_watch_link', on_delete=models.CASCADE)
-    watch_link = models.URLField()
-
 class MovieComment(models.Model):
     """
     Model for the comments on each movie

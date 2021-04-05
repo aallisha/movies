@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from .models import Movie, MovieLinks, MovieCast
+from .models import Movie, MovieCast
 from .forms import CommentForm
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
@@ -53,9 +53,6 @@ class MovieDetailView(FormMixin, DetailView):
 
         # get all of the actors that a movie object has and pass it to the context
         context['actors'] = movie_object.cast.all()
-
-        # we'll use this 'link' variable in our templates
-        context['link'] = MovieLinks.objects.filter(movie=self.get_object())
 
         # for displaying the related movies based on the genre
         context['related_movies'] = Movie.objects.filter(genre=self.get_object().genre)
