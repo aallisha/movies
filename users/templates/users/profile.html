@@ -6,10 +6,24 @@
 <main class="content">
     <div class="single">
         <div class="container" style="color:#ffffff">
-            <h1>Profile</h1>
-            <p>Username: {{ user.username }}</p>
-            <p>Email: {{ user.email }}</p>
-        <a href ="{% url 'logout'%}">logout</a>
+            <h1>Profile Page</h1>
+            <br>
+            <div class="content-section">
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="account-heading">Username: {{ user.username }}</h4>
+                        <p class="text-secondary">
+                            Email:
+                            {% if user.email %}
+                                {{ user.email }}
+                            {% else %}
+                                 You haven't provided us any email.
+                            {% endif %}
+                        </p>
+                        <a href ="{% url 'logout'%}">logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
