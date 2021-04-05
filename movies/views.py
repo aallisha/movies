@@ -27,6 +27,7 @@ class MovieListView(ListView):
     """
     model = Movie
     paginate_by = 1
+    order_by = 'created_date'
 
 class MovieDetailView(FormMixin, DetailView):
     model = Movie
