@@ -62,6 +62,7 @@ class Movie(models.Model):
     trailer_link = models.URLField()
     views = models.IntegerField(default=0)
     rating = models.IntegerField(choices=RATING, default=2)
+
     def save(self, *args, **kwargs):
         """ 
         Override the default save function to extend its functionality 
@@ -78,7 +79,7 @@ class MovieComment(models.Model):
     """
     Model for the comments on each movie
     """
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='comments')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()

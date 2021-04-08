@@ -1,7 +1,8 @@
-{% extends 'movies/index.html' %}
+{% extends 'movies/base.html' %}
 {% block head %}
-<title>Profile</title>
+<title> Profile </title>
 {% endblock %}
+
 {% block content %}
 <main class="content">
     <div class="single">
@@ -20,7 +21,7 @@
                                  You haven't provided us any email.
                             {% endif %}
                         </p>
-                        <a href ="{% url 'logout'%}">logout</a>
+                        <a href ="{% url 'logout' %}">logout</a>
                     </div>
                 </div>
             </div>

@@ -29,13 +29,14 @@ class MovieListView(ListView):
     paginate_by = 1
     order_by = 'created_date'
 
+
 class MovieDetailView(FormMixin, DetailView):
     model = Movie
     paginate_by = 1
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse('movies_main:movie_detail', kwargs = {'slug': self.object.slug})
+        return reverse('movies_main:movies_detail', kwargs = {'slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         """
@@ -76,6 +77,7 @@ class MovieDetailView(FormMixin, DetailView):
 
     def form_valid(self, form):
         form.save()
+        # this message will be available in the context
         messages.success(self.request, 'Please wait, your comment will be displayed after the admin approves of it.')
         return super(MovieDetailView, self).form_valid(form)
 

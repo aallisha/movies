@@ -1,72 +1,70 @@
-{% extends 'movies/index.html' %}
+{% extends "movies/base.html" %}
 {% load static %}
-
 {% block content %}
-    <main class="content">
-        <section class="centered">
-            <!--check if the context contains a 'movie_genre' or 'movie_cast'-->
-            <!--which will be handled by our views-->
-            {% if movie_genre %}
-                <h3>{{ movie_genre|title }} Movies</h3>
-                <hr>
-            {% elif movie_cast %}
-                <h3>{{ movie_cast.actor_name|title }}'s Movies</h3>
-                <hr>
-            {% endif %}
 
-            <div class="movies">
-                {% if movies_of_actor %}
-                    {% for movie in movies_of_actor %}
-                        <div class="mov">
-                            <a href="{% url 'movies_main:movie_detail' movie.slug %}">
-                                <img src="{{ movie.image.url }}">
-                                <h2 class="movietitle">{{ movie.title }}</h2>
-                            </a>
-                        </div>
-                    {% empty %}
-                        <h4> There are no movies in this section. </h4>
-                    {% endfor %}
+<h2 style="text-align:center;">
+    {% comment %}check if the context contains a 'movie_genre' or 'movie_cast'{% endcomment %}
+    {% comment %}which will be handled by our views{% endcomment %}
+    {% if movie_genre %}
+    <h3>{{ movie_genre|title }} Movies</h3>
+    {% elif movie_cast %}
+    <h3>{{ movie_cast.actor_name|title }}'s Movies</h3>
+    {% endif %}
+    <hr>
+</h2>
+<div id="slide-wrapper">
+    {% comment %}    <img id="slideLeft" class="arrow" src="{% static 'img/arrow-left.png' %}">{% endcomment %}
+    <div id="movie-slider">
+        {% for movie in object_list %}
+        <a href="{% url 'movies_main:movies_detail' movie.slug %}">
+            <img src="{{ movie.image.url }}" class="thumbnail">
+        </a>
+        {% endfor %}
+    </div>
+    {% comment %}    <img id="slideRight" class="arrow" src="{% static 'img/arrow-right.png' %}">{% endcomment %}
+</div>
 
-                {% else %}
-                    {% for movie in object_list %}
-                        <div class="mov">
-                            <a href="{% url 'movies_main:movie_detail' movie.slug %}">
-                                <img src="{{ movie.image.url }}">
-                                <h2 class="movietitle">{{ movie.title }}</h2>
-                            </a>
-                        </div>
-                    {% empty %}
-                        <h4> There are no movies in this section. </h4>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            {% if is_paginated %}
-                <nav class="pagination">
-                    <ul>
-                        {% if page_obj.has_previous %}
-                            <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-                        {% else %}
-                            <li class="disabled"></li>
-                        {% endif %}
+{% if is_paginated %}
+<nav class="pagination">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% else %}
+        <li class="disabled"></li>
+        {% endif %}
 
-                        {% for pages in page_obj.paginator.page_range %}
-                            <!--if this is the current page-->
-                            {% if page_obj.number == pages %}
-                                <!--then don't show any link-->
-                                <li><a href="#">{{ pages }}</a></li>
-                            {% else %}
-                                <li><a href="?page={{ pages }}">{{ pages }}</a></li>
-                            {% endif %}
-                        {% endfor %}
+        {% for pages in page_obj.paginator.page_range %}
+        {% comment %}if this is the current page{% endcomment %}
+        {% if page_obj.number == pages %}
+        {% comment %}then don't show any link{% endcomment %}
+        <li><a href="#">{{ pages }}</a></li>
+        {% else %}
+        <li><a href="?page={{ pages }}">{{ pages }}</a></li>
+        {% endif %}
+        {% endfor %}
 
-                        {% if page_obj.has_next %}
-                            <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
-                        {% else %}
-                            <li class="disabled"></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            {% endif %}
-        </section>
-    </main>
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% else %}
+        <li class="disabled"></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+<script type="text/javascript">
+			const buttonRight = document.getElementById('slideRight');
+			const buttonLeft = document.getElementById('slideLeft');
+
+			buttonRight.addEventListener('click', function(){
+				document.getElementById('movie-slider').scrollLeft += 180;
+		    })
+
+		    buttonLeft.addEventListener('click', function(){
+		      document.getElementById('movie-slider').scrollLeft -= 180;
+		    })
+
+
+</script>
+
 {% endblock content %}

@@ -22,9 +22,10 @@ from users import views as users_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='movie-home'),
-    
     path('admin/', admin.site.urls),
+
+
+    path('', HomeView.as_view(), name='movies_home'),
     
     path('movies/', include('movies.urls', namespace='movies_main')),
     

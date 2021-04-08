@@ -1,95 +1,78 @@
-{% extends 'movies/index.html' %}
+{% extends "movies/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-    <main class="content">
-        <div class="single">
 
-            <section class="trailer">
-                <h3>Trailer</h3>
-                <div class="trailer_frame">
-                    <iframe width="100%" height="100%" src="{{ object.trailer_link }}" frameborder="1"
-                            allowfullscreen></iframe>
-                </div>
-            </section>
+<div class="row">
+    <div class="col-md-12 trailer-section">
+        <section class="trailer">
+            <div class="trailer-frame">
+                <iframe width="100%" height="100%" src="{{ object.trailer_link }}" frameborder="1"></iframe>
+            </div>
+        </section>
+    </div>
+</div>
 
-            <section class="movie">
-                <img src="{{ object.image.url }}">
-                <ul class="hello">
-                    <li>{{ object.title }}</li>
-                    <li>{{ object.description }}</li>
-                    <li><a href="/movies/genre/{{ object.genre }}">{{ object.genre }}</a></li>
-                    <li>
-                          {% for actor in actors %}
-                              <a href="/movies/cast/{{ actor.actor_slug }}">{{ actor.actor_name }} </a>
-                          {% endfor %}
-                    </li>
-                    <li>Rating: <b>{{ object.rating }}/5</b></li>
-                    <li>{{ object.views }} views</li>
-                    <li><a href="#">Watch</a></li>
-                </ul>
-
-            </section>
-            <section class="comments">
-                <h3>Comments ({{ comments.count }})</h3>
-                <div class="row">
-                    <div class="col-md-8 card mb-4  mt-3 ">
-                        <div class="card-body">
-                            {% for comment in comments %}
-                                <div class="comments" style="padding: 10px;">
-                                  <p class="font-weight-bold">
-                                    {{ comment.name }}
-                                  </p>
-                                  {{ comment.body | linebreaks }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="col-md-8 card mb-4  mt-3 ">
-                        <div class="card-body">
-                                {% if user.is_authenticated %}
-                                    {% comment %} if the user has just posted a comment,
-                                    then they don't need to see the form {% endcomment %}
-                                    {% if messages %}
-                                        <div class="content-section">
-                                            {% for message in messages %}
-                                                <div class="alert alert-{{ message.tags }}">
-                                                {{ message }}
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <div class="content-section">
-                                            <form method="post">
-                                                {% csrf_token %}
-                                                <fieldset class="form-group">
-                                                    <legend class="border-bottom mb-4"><h3>Leave a comment</h3></legend>
-                                                    {{ comment_form | crispy }}
-                                                </fieldset>
-                                                <div class="form-group">
-                                                    <button class="btn btn-outline-info" type="submit">Post</button>
-                                                </div>
-                                            </form>
-                                    {% endif %}
-                                {% else %}
-                                    <a style="margin-top: 1.3em;" href="{% url 'login' %}">Login to comment</a>
-                                {% endif %}
-                        </div>
-                    </div>
-            </section>
-
-            <section class="related" style="margin-top:20px;">
-                <h3>Related movies</h3>
-                {% for movie in related_movies %}
-                    <div class="relatemovie">
-                        <a href="#"><img src="{{ movie.image.url }}"></a>
-                        <a href="#"><span class="relatedname">{{ movie.title }}</span></a>
-                    </div>
+<div class="row movie-desc">
+    <div class="col-md-3 movie-img">
+        <img src="{{ object.image.url }}" alt="">
+    </div>
+    <div class="col-md-9">
+        <div class="desc-section">
+            <h3>{{ object.title }}</h3>
+            <p>{{ object.description | truncatewords:80}}</p>
+            <h5><a href="/movies/genre/{{ object.genre }}">{{ object.genre }}</a></h5>
+            <h5>
+                {% for actor in actors %}
+                <a href="/movies/cast/{{ actor.actor_slug }}">{{ actor.actor_name }} </a>
                 {% endfor %}
-            </section>
-
+            </h5>
+            <h6>Rating: <b>{{ object.rating }} out of 5</b></h6>
+            <h6>{{ object.views }} views</h6>
         </div>
-    </main>
+    </div>
+</div>
+
+
+<div class="row ">
+    <div class="col-md-12 comment-title">
+        <h3>Comments ({{ comments.count }})</h3>
+        {% for comment in comments %}
+        <div class="movie-comment">
+            <h5 style="color:#b2bec3; margin-left:5px;">
+                {{ comment.name }}
+            </h5>
+            <p style="color:white; margin-left:17px;">{{ comment.body }}</p>
+        </div>
+        {% endfor %}
+        <div class="col-md-8 mb-4 mt-3">
+            {% if user.is_authenticated %}
+                {% comment %} if the user has just posted a comment,
+                then they don't need to see the form {% endcomment %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4"><h3>Leave a comment</h3></legend>
+                            {{ comment_form | crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit">Post</button>
+                        </div>
+                    </form>
+                {% endif %}
+            {% else %}
+                <a style="margin-top: 1.3em;" href="{% url 'login' %}">Login to comment</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 
 {% endblock content %}

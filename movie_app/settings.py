@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'users.apps.UsersConfig',
+    'users.apps.UsersConfig',
     'crispy_forms',
 ]
 
@@ -126,13 +126,10 @@ USE_TZ = True
 # configuration for serving static files during development
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-CRISPY_TEMPLATE_PACK="bootstrap4"
-
 # configuration for serving files uploaded by a user during development
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-LOGIN_REDIRECT_URL = 'movie-home'
+CRISPY_TEMPLATE_PACK="bootstrap4"
+LOGIN_REDIRECT_URL = 'movies_home'
 LOGIN_URL = 'login'
