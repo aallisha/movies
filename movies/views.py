@@ -12,7 +12,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         """
-        Returns the context object list to which we're adding the movie genres
+        Returns the context object list to which we're adding the movie statuses
         """
         context = super(HomeView, self).get_context_data(**kwargs)
         context['top_rated'] = Movie.objects.filter(status='TR')
